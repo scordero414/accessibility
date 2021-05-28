@@ -90,6 +90,11 @@ byte detachedServoCount = 0;
 byte servoCount = 0;
 
 boolean isResetting = false;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////ß
+// Pin bandera para alarma.
+int pinAlarma = 4;
+boolean banderaAlarma = false;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Forward declare a few functions to avoid compiler errors with older versions
 // of the Arduino IDE.
@@ -229,6 +234,47 @@ void outputPort(byte portNumber, byte portValue, byte forceSend)
     previousPINs[portNumber] = portValue;
   }
 }
+
+
+void reproducirAlarma(){
+    tone(5, 327.0, 1000); //Do
+    delay(300);
+    tone(5, 327.0, 1000); //Do
+    delay(300);
+    tone(5, 327.0, 1000); //Do
+    delay(300);
+    tone(5, 436.5, 1000); //Fa
+    delay(300);
+    tone(5, 550.0, 1000); //La
+    delay(500);
+
+    tone(5, 327.0, 1000); //Do
+    delay(300);
+    tone(5, 327.0, 1000); //Do
+    delay(300);
+    tone(5, 327.0, 1000); //Do
+    delay(300);
+    tone(5, 436.5, 1000); //Fa
+    delay(300);
+    tone(5, 550.0, 1000); //La
+    delay(500);
+
+    tone(5, 436.5, 1000); //Faß
+    delay(300);
+    tone(5, 436.5, 1000); //Fa
+    delay(300);
+    tone(5, 412.0, 1000); //Mi
+    delay(300);
+    tone(5, 412.0, 1000); //Mi
+    delay(300);
+    tone(5, 367.1, 1000); //Re
+    delay(300);
+    tone(5, 367.1, 1000); //Re
+    delay(300);
+    tone(5, 327.0, 1000); //Doßß
+    delay(500);
+}
+
 
 /* -----------------------------------------------------------------------------
  * check all the active digital inputs for change of state, then add any events
@@ -786,11 +832,18 @@ void loop()
 {
   byte pin, analogPin;
 
-  /* DIGITALREAD - as fast as possible, check for changes and output them to the
+  /* DIGITALREAD - as fast as possible, check for changes and output them to theß
    * FTDI buffer using Serial.print()  */
   checkDigitalInputs();
 
-  /* STREAMREAD - processing incoming messagse as soon as possible, while still
+
+  banderaAlarma = digitalRead(pinAlarma);
+
+  if(banderaAlarma)
+    reproducirAlarma();
+
+
+  /* STREAMREAD - processing incoming messagse as soon as possible, while stillß
    * checking digital inputs.  */
   while (Firmata.available())
     Firmata.processInput();

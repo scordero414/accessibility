@@ -15,7 +15,7 @@ WebsocketServer socket;
 // Manipular funciones de arduino.
 Arduino arduino;
 String txtObtenido;
-final int ledPin = 2, motorPin = 3;
+final int ledPin = 2, motorPin = 3, alarmaPin = 4;
 
 
 final int PUERTO_COM = 0;
@@ -27,7 +27,9 @@ final String MSG_BIENVENIDA = "hello, I am milo, I am at your feet, boss",
   VACIO = "", 
   MSG_MAL_COMANDO = "unknown command", 
   TXT_MOTOR_ENCENDIDO = "turn fan on", 
-  TXT_MOTOR_APAGADO = "turn fan off";
+  TXT_MOTOR_APAGADO = "turn fan off",
+  TXT_ALARMA_ENCENDIDO = "turn on the alarm ",
+  TXT_ALARMA_APAGADO = "turn off the alarm ";
 
 
 void setup() {
@@ -79,10 +81,20 @@ void draw() {
     break;
   case 3:
     arduino.analogWrite(motorPin, 255);
-    tts.speak(TXT_CONFIRMATION + TXT_LED_ENCENDIDO); 
+    tts.speak(TXT_CONFIRMATION + TXT_MOTOR_ENCENDIDO); 
+    break;
   case 4:
     arduino.analogWrite(motorPin, 0);
-    tts.speak(TXT_CONFIRMATION + TXT_LED_APAGADO);
+    tts.speak(TXT_CONFIRMATION + TXT_MOTOR_APAGADO);
+    break;
+  case 5:
+    arduino.digitalWrite(alarmaPin, 1);
+    tts.speak(TXT_CONFIRMATION + TXT_ALARMA_ENCENDIDO);
+    break;
+  case 6:
+    arduino.digitalWrite(alarmaPin, 0);
+    tts.speak(TXT_CONFIRMATION + TXT_ALARMA_APAGADO);
+    break;
   default:
     tts.speak(MSG_MAL_COMANDO);
   }
@@ -98,6 +110,8 @@ void inicializarOpcionesBot() {
   opcionesBot.put(TXT_LED_APAGADO, 2);
   opcionesBot.put(TXT_MOTOR_ENCENDIDO, 3);
   opcionesBot.put(TXT_MOTOR_APAGADO, 4);
+  opcionesBot.put(TXT_ALARMA_ENCENDIDO, 5);
+  opcionesBot.put(TXT_ALARMA_APAGADO, 6);
 }
 
 
