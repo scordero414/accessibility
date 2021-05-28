@@ -16,6 +16,7 @@ PImage sonido_activo;
 PImage sonido_inactivo;
 PImage ventilador_activo;
 PImage ventilador_inactivo;
+PImage termometro;
 
 //MANEJAR ESTADOS QUE CONTROLEN SI LAS COSAS ESTÁN ACTIVAS O INACTIVAS.
 boolean estadoBombillo, estadoVentilador, estadoAlarma;
@@ -47,13 +48,17 @@ final String MSG_BIENVENIDA = "hello, I am milo, I am at your feet, boss",
   TXT_ALARMA_ENCENDIDO = "turn on the alarm", 
   TXT_ALARMA_APAGADO = "turn off the alarm", 
   TXT_COMMAND_USED = "command already running", 
-  TXT_CERRAR_APP = "close app";
+  TXT_CERRAR_APP = "close application", 
+  TXT_PEDIR_TEMP = "what is the temperature", 
+  TXT_LEER_TEMP = "the temperature is";
 
 
 void setup() {
-  size(800, 800);
+  size(800, 600);
 
   fondo = loadImage("imágenes/fondo.png");
+
+  termometro = loadImage("imágenes/termometro.png");
 
   reconocimiento_encender = loadImage("imágenes/reconocimiento_encender.png");
   reconocimiento_apagar = loadImage("imágenes/reconocimiento_apagar.png");
@@ -99,7 +104,15 @@ void setup() {
 void draw() {
   image(fondo, 0, 0);
 
+  image(termometro, 310, 310);
+  double valorPot = arduino.analogRead(0);
+  double valorTemp = valorPot * 5 / 1023.0 * 100;
 
+  fill(0, 102, 153);
+  textSize(32);
+  text((int)valorTemp, 390, 350);
+  noFill();
+  
   if (estado_reconocimiento) {
     image(reconocimiento_apagar, 239, 50);
     image(mic_activo, 580, 45);
@@ -108,9 +121,6 @@ void draw() {
     //String str;
     //if(!txtObtenido.equals(""))
     //   str = txtObtenido;
-    fill(0, 102, 153);
-    textSize(32);
-    text("Comando: ", 250, 350);
     int opcionBot = 0;
     try {
       opcionBot = opcionesBot.get(txtObtenido);
@@ -182,6 +192,9 @@ void draw() {
       tts.speak(TXT_CONFIRMATION + TXT_CERRAR_APP);
       exit();
       break;
+    case 8:
+      tts.speak(TXT_CONFIRMATION + TXT_LEER_TEMP + str((int)valorTemp));
+      break;
     default:
       println("Unknow command");
       tts.speak(MSG_MAL_COMANDO);
@@ -234,6 +247,7 @@ void inicializarOpcionesBot() {
   opcionesBot.put(TXT_ALARMA_ENCENDIDO, 5);
   opcionesBot.put(TXT_ALARMA_APAGADO, 6);
   opcionesBot.put(TXT_CERRAR_APP, 7);
+  opcionesBot.put(TXT_PEDIR_TEMP, 8);
 }
 
 
