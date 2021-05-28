@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and
+                Bootstrap contributors" />
+    <meta name="generator" content="Hugo 0.83.1" />
+    <title>Carousel Template · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/" />
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="./carousel.css" rel="stylesheet" />
+    <script type="text/javascript">
+        // We need to check if the browser supports WebSockets
+
+        if ("WebSocket" in window) {
+            // Before we can connect to the WebSocket, we need to start it in Processing.
+
+            var ws = new WebSocket("ws://localhost:1337/p5websocket");
+        } else {
+            // The browser doesn't support WebSocket
+
+            alert("WebSocket NOT supported by your Browser!");
+        }
+
+        // Now we can start the speech recognition
+        // Supported only in Chrome
+        // Once started, you need to allow Chrome to use the microphone
+
+        var recognition = new webkitSpeechRecognition();
+
+        // Be default, Chrome will only return a single result.
+        // By enabling "continuous", Chrome will keep the microphone active.
+
+        recognition.continuous = true;
+
+        recognition.onresult = function(event) {
+            // Get the current result from the results object
+            var transcript = event.results[event.results.length - 1][0].transcript;
+
+            // Send the result string via WebSocket to the running Processing Sketch
+            ws.send(transcript);
+        };
+
+        // Start the recognition
+        recognition.start();
+
+        // Restart the recognition on timeout
+        recognition.onend = function() {
+            recognition.start();
+        };
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top
+                    bg-dark">
+            <div class="container-fluid d-flex justify-content-center">
+                <h1 class="navbar-brand" href="#">Universidad Autónoma de Manizales</h1>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="myCarousel" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="./images/uam.png" class="img-carousel" />
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid
+                            slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#777" />
+                    </svg>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Marketing messaging and featurettes
+  ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+        <div class="container marketing">
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <img src="./images/sebas-pic.jpeg" class="rounded-circle" width="150" height="150" />
+
+                    <h2>Sebastian <br> Cordero Ramirez</h2>
+                </div>
+                <!-- /.col-lg-4 -->
+                <div class="col-lg-3">
+                    <img src="./images/michael-pic.jpeg" class="rounded-circle" width="150" height="150" />
+
+                    <h2>Michael Steven <br> Pineda Torres</h2>
+                </div>
+                <!-- /.col-lg-4 -->
+                <div class="col-lg-3">
+                    <img src="./images/milo-pic.jpeg" class="rounded-circle" width="150" height="150" />
+
+                    <h2>Juan Camilo <br> Uribe Villa</h2>
+                </div>
+                <div class="col-lg-3">
+                    <img src="./images/daniel-pic.jpeg" class="rounded-circle" width="150" height="150" />
+
+                    <h2>Daniel <br> Gutierrez Duque</h2>
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+
+            <!-- START THE FEATURETTES -->
+
+            <hr class="featurette-divider" />
+
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">
+                        Proteus
+                    </h2>
+                    <p class="lead">
+                        Software de automatización de diseño electrónico, desarrollado por Labcenter Electronics Ltd., que consta de los dos programas principales: Ares e Isis, y los módulos VSM y Electra.
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    <img src="./images/proteus.jpeg" width="400" height="400" />
+                </div>
+            </div>
+
+            <hr class="featurette-divider" />
+
+            <div class="row featurette">
+                <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading">
+                        Arduino
+                    </h2>
+                    <p class="lead">
+                        Plataforma que permite crear diferentes tipos de microordenadores de una sola placa a los que la comunidad de creadores puede darles diferentes tipos de uso.
+                    </p>
+                </div>
+                <div class="col-md-5 order-md-1">
+                    <img src="./images/arduino.png" width="400" height="400" />
+                </div>
+            </div>
+
+            <hr class="featurette-divider" />
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">
+                        Processing
+                    </h2>
+                    <p class="lead">
+                        Lnguaje de programación y entorno de desarrollo integrado de código abierto basado en Java, de fácil utilización, y que sirve como medio para la enseñanza y producción de proyectos multimedia e interactivos de diseño digital.
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    <img src="./images/processing.png" width="400" height="400" />
+                </div>
+            </div>
+
+            <hr class="featurette-divider" />
+
+            <!-- /END THE FEATURETTES -->
+        </div>
+        <!-- /.container -->
+
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-end"><a href="#">Back to top</a></p>
+            <p>
+                &copy; 2017–2021 Company, Inc. &middot;
+                <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+            </p>
+        </footer>
+    </main>
+
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
